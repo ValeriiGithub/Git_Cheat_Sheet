@@ -251,3 +251,82 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ```
 > Вызов `git restore --staged example.txt` перевёл `example.txt` из staged обратно в `untracked`.  
 Чтобы «сбросить» все файлы из staged обратно в `untracked/modified`, можно воспользоваться командой `git restore --staged .`: она сбросит всю текущую папку (`.`).
+
+***
+## «Откатить» коммит — `git reset --hard <commit hash>`
+> (от англ. reset  — «сброс», «обнуление» и hard — «суровый»).
+
+```BASH
+$ git log --oneline # хеш можно найти в истории
+7b972f5 (HEAD -> master) style: добавить комментарии, расставить отступы
+b576d89 feat: добавить массив Expenses и цикл для добавления трат # вот сюда и вернёмся
+4b58962 refactor: разделить analyzeExpenses() на countSum() и saveExpenses()
+
+$ git reset --hard b576d89
+# теперь мы на этом коммите
+HEAD is now at b576d89 feat: добавить массив Expenses и цикл для добавления трат
+```
+> Теперь коммит b576d89 стал последним: вся дальнейшая разработка будет вестись от него. Файл также вернулся к тому состоянию, в котором был в момент этого коммита. А коммит 7b972f5 Git просто удалил. Это можно проверить, снова запросив лог. Он покажет следующее.
+
+```BASH
+$ git log --oneline
+b576d89 (HEAD -> master) feat: добавить массив Expenses и цикл для добавления трат
+4b58962 refactor: разделить analyzeExpenses() на countSum() и saveExpenses() 
+
+Вот так схематично выглядит весь процесс «отката» с помощью git reset --hard <hash>.
+Будьте осторожны с командой git reset --hard! При удалении коммитов можно потерять что-то нужное.
+«Откатить» изменения, которые не попали ни в staging, ни в коммит, — git restore <file>
+Может быть так, что вы случайно изменили файл, который не планировали. Теперь он отображается в Changes not staged for commit (modified). Чтобы вернуть всё «как было», можно выполнить команду git restore <file>.
+
+# случайно изменили файл example.txt
+$ git status
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+          modified:   example.txt
+
+$ git restore example.txt
+$ git status
+On branch main
+nothing to commit, working tree clean
+```
+
+Изменения в файле «откатятся» до последней версии, которая была сохранена через `git commit` или `git add`.
+
+![Схема](https://pictures.s3.yandex.net/resources/M2_T6_1686651127.png)
+
+## «Откатить» изменения, которые не попали ни в `staging`, ни в коммит, — `git restore <file>`
+
+> Может быть так, что вы случайно изменили файл, который не планировали. Теперь он отображается в `Changes not staged for commit` (`modified`). Чтобы вернуть всё «как было», можно выполнить команду `git restore <file>`.
+
+```BASH
+# случайно изменили файл example.txt
+$ git status
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+          modified:   example.txt
+
+$ git restore example.txt
+$ git status
+On branch main
+nothing to commit, working tree clean
+```
+> Изменения в файле «откатятся» до последней версии, которая была сохранена через `git commit` или `git add`.
+
+- Вы сделали коммит, после которого «всё сломалось». Какую команду использовать, чтобы «откатить» репозиторий на более ранний коммит?
+	`git reset --hard <более ранний коммит>`
+- Вы добавили изменения в staging area и хотите вернуть их в modified. Какую команду выбрать?
+  	`git restore --staged <файл>`
+- Вы случайно изменили файл, который вообще не хотели менять. Но в staging его пока не добавили. Какую команду нужно выполнить?
+  	`git restore <файл>`
+### Итог
+
+Вот о чём мы рассказали:
+
+- Команда `git restore --staged <file>` переведёт файл из staged обратно в modified или untracked.
+- Команда `git reset --hard <commit hash>` «откатит» историю до коммита с хешем <hash>. Более поздние коммиты потеряются!
+- Команда `git restore <file>` «откатит» изменения в файле до последней сохранённой (в коммите или в staging) версии.
+***
