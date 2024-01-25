@@ -12,7 +12,7 @@
 # Работа с файлами и папками
 ## Создание
 
-    touch index.html (англ. touch, «коснуться») — создай файл index.html в текущей папке;
+- `touch index.html` (англ. touch, «коснуться») — создай файл index.html в текущей папке;
     touch index.html style.css script.js — если нужно создать сразу несколько файлов, можно напечатать их имена в одну строку через пробел;
     mkdir second-project (от англ. make directory, «создать директорию») — создай папку с именем second-project в текущей папке.
 
