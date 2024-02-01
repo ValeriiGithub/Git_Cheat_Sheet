@@ -29,7 +29,7 @@
 
 - `rm about.html` (от англ. remove, «удалить») — удали файл about.html;
 - `rmdir images` (от англ. remove directory, «удалить директорию») — удали папку images;
-    rm -r second-project (от англ. remove, «удалить» + recursive, «рекурсивный») — удали папку second-project и всё, что она содержит.
+- rm -r second-project (от англ. remove, «удалить» + recursive, «рекурсивный») — удали папку second-project и всё, что она содержит.
 
 ## Полезные возможности
 
