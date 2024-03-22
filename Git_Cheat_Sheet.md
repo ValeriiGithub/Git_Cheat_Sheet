@@ -326,6 +326,7 @@ nothing to commit, working tree clean
   	`git restore --staged <файл>`
 - Вы случайно изменили файл, который вообще не хотели менять. Но в staging его пока не добавили. Какую команду нужно выполнить?
   	`git restore <файл>`
+
 ### Итог
 
 - Команда `git restore --staged <file>` переведёт файл из staged обратно в modified или untracked.
