@@ -252,6 +252,7 @@ Untracked files:
 no changes added to commit (use "git add" and/or "git commit -a")
 # файл example.txt из staged вернулся обратно в untracked
 ```
+
 > Вызов `git restore --staged example.txt` перевёл `example.txt` из staged обратно в `untracked`.  
 Чтобы «сбросить» все файлы из staged обратно в `untracked/modified`, можно воспользоваться командой `git restore --staged .`: она сбросит всю текущую папку (`.`).
 
