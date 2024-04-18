@@ -233,7 +233,7 @@ a31fa24 Добавить главную страницу и стили
 
 # Как откатиться назад, если «всё сломалось»
 
-## Выполнить unstage изменений — `git restore --staged <file>`
+## Выполнить unstage изменений — `git restore` `--staged <file>`
 
 ```BASH
 $ touch example.txt # создали ненужный файл
